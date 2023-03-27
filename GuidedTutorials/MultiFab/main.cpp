@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
         // Parameters
 
         // Number of data components at each grid point in the MultiFab
+        // How many scalar values are stored at each grid point
         int ncomp = 1;
         // how many grid cells in each direction over the problem domain
         int n_cell = 32;

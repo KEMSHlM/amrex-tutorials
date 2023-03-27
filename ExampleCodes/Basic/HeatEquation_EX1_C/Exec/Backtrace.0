@@ -1,0 +1,18 @@
+ 0: amrex::BLBackTrace::print_backtrace_info(__sFILE*) (in main2d.gnu.ex) (AMReX_BLBackTrace.cpp:186)
+
+ 1: amrex::BLBackTrace::handler(int) (in main2d.gnu.ex) (AMReX_BLBackTrace.cpp:96)
+
+ 2: amrex::FileOpenFailed(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in main2d.gnu.ex) (AMReX_Utility.cpp:174)
+
+ 3: amrex::ParallelDescriptor::ReadAndBcastFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, amrex::Vector<char, std::allocator<char> >&, bool, int const&) (in main2d.gnu.ex) (AMReX_ParallelDescriptor.cpp:1421)
+
+ 4: amrex::(anonymous namespace)::read_file(char const*, std::__cxx11::list<amrex::ParmParse::PP_entry, std::allocator<amrex::ParmParse::PP_entry> >&) (in main2d.gnu.ex) (AMReX_ParmParse.cpp:530)
+
+ 5: amrex::ParmParse::Initialize(int, char**, char const*) (in main2d.gnu.ex) (AMReX_ParmParse.cpp:1190)
+
+ 6: amrex::Initialize(int&, char**&, bool, int, std::function<void ()> const&, std::ostream&, std::ostream&, void (*)(char const*)) (in main2d.gnu.ex) (AMReX.cpp:422)
+
+ 7: main (in main2d.gnu.ex) (main.cpp:13)
+
+ 8: start (in dyld) + 2544
+
