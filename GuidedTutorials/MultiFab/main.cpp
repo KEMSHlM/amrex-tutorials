@@ -1,4 +1,4 @@
-
+// なぜか，VScodeのinclude pathによって読み込まれない
 #include <AMReX.H>
 #include <AMReX_Print.H>
 #include <AMReX_MultiFab.H> //For the method most common at time of writing
@@ -47,6 +47,7 @@ int main(int argc, char* argv[])
         ba.maxSize(max_grid_size);
 
         // Distribution Mapping
+        // 計算領域がどのようにプロセス間でblock分割されるかを決める
         amrex::DistributionMapping dm(ba);
 
         //Define MuliFab
@@ -70,7 +71,8 @@ int main(int argc, char* argv[])
             const amrex::Box& bx = mfi.validbox();
             const amrex::Array4<amrex::Real>& mf_array = mf.array(mfi);
 
-            amrex::ParallelFor(bx, [=] AMREX_GPU_DEVICE(int i, int j, int k){
+            // ここの[]はラムダ式のキャプチャリスト
+            amrex::ParallelFor(bx, [=] AMREX_GPU_DEVICE(int i, int j, int k) {
 
                 amrex::Real x = (i+0.5) * dx[0];
                 amrex::Real y = (j+0.5) * dx[1];

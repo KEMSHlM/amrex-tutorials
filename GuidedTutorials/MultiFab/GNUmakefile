@@ -1,4 +1,5 @@
-AMREX_HOME ?= ../../../amrex
+# AMREX_HOME ?= ../../../amrex
+AMREX_HOME ?= /Users/kenshin/Projects/amrex/tmp_install_dir/include
 
 DEBUG	= FALSE
 DEBUG	= TRUE

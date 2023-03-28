@@ -12,6 +12,7 @@
 
 int main (int argc, char* argv[])
 {
+    // amrex::Initialize と amrex::Finalize の間でコードを実行しないと，リソースを適切に開放できない．
     amrex::Initialize(argc,argv);
     {
 
@@ -70,9 +71,12 @@ int main (int argc, char* argv[])
 
     // make BoxArray and Geometry
     // ba will contain a list of boxes that cover the domain
+    // 計算領域のリスト
+    amrex::BoxArray ba;
     // geom contains information such as the physical domain size,
     // number of points in the domain, and periodicity
-    amrex::BoxArray ba;
+    // geomは，計算領域の大きさといった情報を持つ．
+    // 計算領域の数と周期性を持つ．
     amrex::Geometry geom;
 
     // define lower and upper indices
@@ -107,10 +111,11 @@ int main (int argc, char* argv[])
     // Ncomp = number of components for each array
     int Ncomp = 1;
 
-    // How Boxes are distrubuted among MPI processes
+    // ボックスが MPI プロセス間でどのように分散されるか
     amrex::DistributionMapping dm(ba);
 
-    // we allocate two phi multifabs; one will store the old state, the other the new.
+    // we allocate two phi multifabs
+    // 一つは現在の時刻，もう一つは前の時刻の値を格納する．
     amrex::MultiFab phi_old(ba, dm, Ncomp, Nghost);
     amrex::MultiFab phi_new(ba, dm, Ncomp, Nghost);
 
@@ -164,12 +169,14 @@ int main (int argc, char* argv[])
     for (int step = 1; step <= nsteps; ++step)
     {
         // fill periodic ghost cells
+        // 周期境界条件を満たすために，境界のデータを更新する．
         phi_old.FillBoundary(geom.periodicity());
 
         // new_phi = old_phi + dt * Laplacian(old_phi)
         // loop over boxes
         for ( amrex::MFIter mfi(phi_old); mfi.isValid(); ++mfi )
         {
+            // ? メッシュの計算領域のゴーストセルを除いた領域
             const amrex::Box& bx = mfi.validbox();
 
             const amrex::Array4<amrex::Real>& phiOld = phi_old.array(mfi);
