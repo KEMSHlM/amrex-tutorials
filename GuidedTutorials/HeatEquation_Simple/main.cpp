@@ -9,7 +9,6 @@
 #include <AMReX_PlotFileUtil.H>
 #include <AMReX_ParmParse.H>
 
-
 int main (int argc, char* argv[])
 {
     // amrex::Initialize と amrex::Finalize の間でコードを実行しないと，リソースを適切に開放できない．

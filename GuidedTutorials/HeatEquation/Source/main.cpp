@@ -5,6 +5,7 @@
 
 using namespace amrex;
 
+// 1, 2, or 3次元で動くようにするのが目的．
 int main (int argc, char* argv[])
 {
     amrex::Initialize(argc,argv);
@@ -74,6 +75,7 @@ void main_main ()
     Geometry geom;
 
     // AMREX_D_DECL means "do the first X of these, where X is the dimensionality of the simulation"
+    // DIM を変えるとそれに応じた次元の配列が作られる．
     IntVect dom_lo(AMREX_D_DECL(       0,        0,        0));
     IntVect dom_hi(AMREX_D_DECL(n_cell-1, n_cell-1, n_cell-1));
 
@@ -126,6 +128,7 @@ void main_main ()
         const Array4<Real>& phiOld = phi_old.array(mfi);
 
         // set phi = 1 + e^(-(r-0.5)^2)
+        // 次元によらず，kを含む
         amrex::ParallelFor(bx, [=] AMREX_GPU_DEVICE(int i, int j, int k)
         {
             Real x = (i+0.5) * dx[0];
